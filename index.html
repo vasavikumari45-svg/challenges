@@ -1,323 +1,176 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>K-Drama Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Children Health Care Centre Dashboard</title>
   <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa6b2; --accent:#ff5c8a; --glass: rgba(255,255,255,0.04);
-      --radius:12px; --card-pad:16px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4faff;
+      color: #333;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; background:linear-gradient(180deg,#071021 0%, #071727 60%); color:#e6eef3; -webkit-font-smoothing:antialiased; padding:28px; 
+    header {
+      background: #4e9cff;
+      color: white;
+      padding: 20px;
+      text-align: center;
     }
-    .app{
-      max-width:1200px; margin:0 auto;
+    header h1 {
+      margin: 0;
+      font-size: 24px;
     }
-    header{display:flex;align-items:center;gap:18px;margin-bottom:20px}
-    .logo{display:flex;align-items:center;gap:12px}
-    .logo .badge{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#6a8cff);display:grid;place-items:center;font-weight:700}
-    h1{font-size:20px;margin:0}
-    p.lead{margin:0;color:var(--muted);font-size:13px}
-
-    .controls{display:flex;gap:12px;align-items:center;margin:18px 0 24px}
-    .search{flex:1}
-    input[type=text], select{
-      width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit;font-size:14px
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background: #3b82f6;
+      padding: 10px;
     }
-    button{background:var(--accent);color:white;padding:10px 14px;border:none;border-radius:10px;cursor:pointer}
-    .chips{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);font-size:13px;color:var(--muted);cursor:pointer}
-    .chip.active{background:linear-gradient(90deg,var(--accent),#6a8cff);color:white;border:none}
-
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 18px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-    .thumb{height:140px;object-fit:cover;width:100%;display:block}
-    .card-body{padding:var(--card-pad)}
-    .title{font-weight:700;margin:0 0 6px;font-size:15px}
-    .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
-    .genres{display:flex;gap:6px;flex-wrap:wrap}
-    .genre{font-size:12px;padding:4px 8px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted)}
-    .card-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-    .small-btn{padding:8px 10px;border-radius:8px;border:none;background:transparent;color:var(--muted);cursor:pointer}
-    .fav{color:#ffb6c1}
-
-    /* modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.7);display:none;align-items:center;justify-content:center}
-    .modal{width:min(880px,96%);background:linear-gradient(180deg,#081022,#06121b);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
-    .modal-grid{display:grid;grid-template-columns:260px 1fr;gap:16px}
-    .modal-thumb{width:100%;height:360px;object-fit:cover;border-radius:10px}
-    .close-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
-
-    /* responsive */
-    @media (max-width:720px){
-      .modal-grid{grid-template-columns:1fr}
-      .modal-thumb{height:220px}
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
     }
-
-    footer{margin-top:26px;color:var(--muted);font-size:13px;text-align:center}
-
-    /* empty state */
-    .empty{padding:40px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px dashed rgba(255,255,255,0.02);text-align:center;color:var(--muted)}
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.02);
+    }
+    .card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      color: #2563eb;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #4e9cff;
+      color: white;
+      margin-top: 40px;
+    }
+    .btn {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="logo">
-        <div class="badge">KD</div>
-        <div>
-          <h1>K-Drama Dashboard</h1>
-          <p class="lead">Discover, filter and save your favourite Korean dramas</p>
+  <header>
+    <h1>Children Health Care Centre Dashboard</h1>
+    <p>Ensuring Healthy Futures for Children</p>
+  </header>
+  
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#appointments">Appointments</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="container">
+    <section id="services">
+      <h2>Our Services</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://img.freepik.com/free-vector/child-doctor-concept-illustration_114360-13044.jpg" alt="Pediatrics">
+          <h3>Pediatrics</h3>
+          <p>Comprehensive health care services for infants, children, and adolescents.</p>
+        </div>
+        <div class="card">
+          <img src="https://img.freepik.com/free-vector/kids-dental-care-concept-illustration_114360-18391.jpg" alt="Dental Care">
+          <h3>Dental Care</h3>
+          <p>Specialized dental checkups and treatments for children’s oral health.</p>
+        </div>
+        <div class="card">
+          <img src="https://img.freepik.com/free-vector/vaccination-concept-illustration_114360-21683.jpg" alt="Vaccination">
+          <h3>Vaccination</h3>
+          <p>Timely immunization programs to safeguard children against diseases.</p>
         </div>
       </div>
-      <div style="margin-left:auto;color:var(--muted);font-size:13px">Built with ❤️ • Single-file HTML/CSS/JS</div>
-    </header>
+    </section>
 
-    <div class="controls">
-      <div class="search">
-        <input id="search" type="text" placeholder="Search by title, actor or director..." />
+    <section id="doctors" style="margin-top:40px;">
+      <h2>Our Doctors</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg" alt="Dr. Kim">
+          <h3>Dr. Kim Soo</h3>
+          <p>Pediatric Specialist with 15 years of experience in child healthcare.</p>
+        </div>
+        <div class="card">
+          <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-85.jpg" alt="Dr. Lee">
+          <h3>Dr. Lee Hana</h3>
+          <p>Expert in dental care for kids, ensuring healthy smiles for children.</p>
+        </div>
       </div>
-      <div style="width:160px">
-        <select id="sort">
-          <option value="popular">Sort: Popular</option>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-          <option value="rating">Top Rated</option>
-        </select>
-      </div>
-      <div style="width:120px">
-        <select id="yearFilter">
-          <option value="all">Year: All</option>
-        </select>
-      </div>
-      <button id="clear">Clear</button>
-    </div>
+    </section>
 
-    <div class="chips" id="genreChips"></div>
+    <section id="appointments" style="margin-top:40px;">
+      <h2>Book an Appointment</h2>
+      <form id="appointmentForm">
+        <label>Child's Name:</label><br>
+        <input type="text" id="childName" required><br><br>
+        <label>Age:</label><br>
+        <input type="number" id="age" required><br><br>
+        <label>Service:</label><br>
+        <select id="service">
+          <option value="Pediatrics">Pediatrics</option>
+          <option value="Dental Care">Dental Care</option>
+          <option value="Vaccination">Vaccination</option>
+        </select><br><br>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+      <p id="confirmation" style="color:green; font-weight:bold; margin-top:10px;"></p>
+    </section>
 
-    <main style="margin-top:18px">
-      <div id="grid" class="grid"></div>
-      <div id="empty" class="empty" style="display:none;margin-top:18px">No dramas match your filters.</div>
-    </main>
-
-    <footer>Tip: Click a card to see details. Use the ♥ button to favourite a show (stored in localStorage).</footer>
+    <section id="contact" style="margin-top:40px;">
+      <h2>Contact Us</h2>
+      <p>Email: info@childhealthcare.com</p>
+      <p>Phone: +91-9876543210</p>
+      <p>Address: 123 Kids Care Street, Health City</p>
+    </section>
   </div>
 
-  <!-- modal -->
-  <div id="backdrop" class="modal-backdrop">
-    <div class="modal">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <strong id="modalTitle">Title</strong>
-        <div>
-          <button id="modalFav" class="close-btn">♡ Favourite</button>
-          <button id="modalClose" class="close-btn">Close</button>
-        </div>
-      </div>
-      <div class="modal-grid">
-        <img id="modalImg" class="modal-thumb" src="" alt="poster">
-        <div>
-          <p id="modalMeta" class="meta"></p>
-          <div id="modalDesc" style="line-height:1.5;color:#cfe6f3"></div>
-          <div style="margin-top:12px" id="modalGenres" class="genres"></div>
-          <div style="margin-top:16px;color:var(--muted)">
-            <div><strong>Cast:</strong> <span id="modalCast"></span></div>
-            <div style="margin-top:8px"><strong>Director:</strong> <span id="modalDirector"></span></div>
-            <div style="margin-top:8px"><strong>Seasons / Episodes:</strong> <span id="modalSeasons"></span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <footer>
+    <p>&copy; 2025 Children Health Care Centre. All Rights Reserved.</p>
+  </footer>
 
   <script>
-    // Sample dataset — replace or extend with your own
-    const dramas = [
-      {
-        id:1, title: "Crash Landing on You", year:2020, rating:8.6, popular:95,
-        img:"https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=0a7f7a9a3b4d7f2a7f59a1b6b5d8d7a2",
-        genres:["Romance","Drama"], cast:"Hyun Bin, Son Ye-jin", director:"Lee Jung-hyo", seasons:"1 / 16",
-        desc:"A South Korean heiress accidentally paraglides into North Korea and meets an army officer. A mix of romance, comedy and political drama."
-      },
-      {
-        id:2, title: "Goblin (Guardian: The Lonely and Great God)", year:2016, rating:8.7, popular:90,
-        img:"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=5d1c1a0ab5d6e9bb8b4a1c9d2f9b6a66",
-        genres:["Fantasy","Romance","Drama"], cast:"Gong Yoo, Kim Go-eun", director:"Lee Eung-bok", seasons:"1 / 16",
-        desc:"A modern-day goblin is searching for a bride to end his cursed immortal life — a visually poetic fantasy romance."
-      },
-      {
-        id:3, title:"Squid Game", year:2021, rating:7.7, popular:99,
-        img:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b4b14b2b1c4d6d8a8a6f8bc2b4a9c12",
-        genres:["Thriller","Drama"], cast:"Lee Jung-jae, Park Hae-soo", director:"Hwang Dong-hyuk", seasons:"1 / 9",
-        desc:"Hundreds of indebted contestants participate in deadly children's games to win a life-changing cash prize. Intense, satirical and violent."
-      },
-      {
-        id:4, title:"Itaewon Class", year:2020, rating:8.2, popular:85,
-        img:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f6e7f6a6b6c6d6e6f6a6b6c6d6e6f6a",
-        genres:["Drama","Business"], cast:"Park Seo-joon, Kim Da-mi", director:"Kim Sung-yoon", seasons:"1 / 16",
-        desc:"An ex-con and his friends fight to make their ambitious street bar business a success and take revenge on a powerful conglomerate."
-      },
-      {
-        id:5, title:"Vincenzo", year:2021, rating:7.8, popular:84,
-        img:"https://images.unsplash.com/photo-1543002588-bfa74002edc5?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2e7f3b2c4a8b6c9d1e6f5a4b3c2d1e6f",
-        genres:["Crime","Dark Comedy","Drama"], cast:"Song Joong-ki, Jeon Yeo-been", director:"Kim Hee-won", seasons:"1 / 20",
-        desc:"A Korean-Italian mafia lawyer returns to Korea and uses his skills to deliver justice — with dark humor and action."
-      },
-      {
-        id:6, title:"Descendants of the Sun", year:2016, rating:8.3, popular:88,
-        img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=6a7b8c9d0e1f2a3b4c5d6e7f8g9h0i1j",
-        genres:["Romance","Action"], cast:"Song Joong-ki, Song Hye-kyo", director:"Lee Eung-bok", seasons:"1 / 16",
-        desc:"A love story between a special forces captain and a doctor set against missions and humanitarian work in a fictional country."
-      }
-    ];
-
-    // populate year filter based on dataset
-    const years = [...new Set(dramas.map(d=>d.year))].sort((a,b)=>b-a);
-    const yearFilter = document.getElementById('yearFilter');
-    years.forEach(y=>{
-      const opt = document.createElement('option'); opt.value=y; opt.textContent = y; yearFilter.appendChild(opt);
+    const form = document.getElementById('appointmentForm');
+    const confirmation = document.getElementById('confirmation');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('childName').value;
+      const service = document.getElementById('service').value;
+      confirmation.textContent = `Appointment booked successfully for ${name} in ${service}!`;
+      form.reset();
     });
-
-    // genres
-    const allGenres = [...new Set(dramas.flatMap(d=>d.genres))].sort();
-    const genreChips = document.getElementById('genreChips');
-    let activeGenres = new Set();
-    allGenres.forEach(g=>{
-      const el = document.createElement('div'); el.className='chip'; el.textContent=g; el.addEventListener('click',()=>{
-        if(activeGenres.has(g)){ activeGenres.delete(g); el.classList.remove('active'); }
-        else{ activeGenres.add(g); el.classList.add('active'); }
-        renderGrid();
-      });
-      genreChips.appendChild(el);
-    });
-
-    // search and sort
-    const searchInput = document.getElementById('search');
-    const sortInput = document.getElementById('sort');
-    const clearBtn = document.getElementById('clear');
-    clearBtn.addEventListener('click', ()=>{ searchInput.value=''; sortInput.value='popular'; yearFilter.value='all'; activeGenres.clear(); document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); renderGrid(); });
-    searchInput.addEventListener('input', renderGrid);
-    sortInput.addEventListener('change', renderGrid);
-    yearFilter.addEventListener('change', renderGrid);
-
-    // localStorage favourites
-    const FAV_KEY = 'kdrama_favs_v1';
-    const favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]'));
-
-    function toggleFav(id){
-      if(favs.has(id)){ favs.delete(id); } else { favs.add(id); }
-      localStorage.setItem(FAV_KEY, JSON.stringify([...favs]));
-      renderGrid();
-    }
-
-    // grid rendering
-    const grid = document.getElementById('grid');
-    const empty = document.getElementById('empty');
-
-    function renderGrid(){
-      const q = searchInput.value.trim().toLowerCase();
-      const year = yearFilter.value;
-      let list = dramas.filter(d=>{
-        if(year!=='all' && String(d.year)!==String(year)) return false;
-        if(activeGenres.size){ if(!d.genres.some(g=>activeGenres.has(g))) return false; }
-        if(q){ const hay = (d.title + ' ' + d.cast + ' ' + (d.director||'')).toLowerCase(); if(!hay.includes(q)) return false; }
-        return true;
-      });
-
-      // sorting
-      const sort = sortInput.value;
-      if(sort==='popular') list.sort((a,b)=>b.popular-a.popular);
-      if(sort==='newest') list.sort((a,b)=>b.year-b.year);
-      if(sort==='oldest') list.sort((a,b)=>a.year-b.year);
-      if(sort==='rating') list.sort((a,b)=>b.rating-a.rating);
-
-      grid.innerHTML='';
-      if(!list.length){ empty.style.display='block'; return; } else { empty.style.display='none'; }
-
-      list.forEach(d=>{
-        const card = document.createElement('div'); card.className='card';
-        card.innerHTML = `
-          <img class="thumb" src="${d.img}" alt="${d.title}">
-          <div class="card-body">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start">
-              <div style="flex:1">
-                <div class="title">${d.title}</div>
-                <div class="meta">${d.year} • ★ ${d.rating} </div>
-              </div>
-              <div style="margin-left:8px">
-                <button data-id="${d.id}" class="small-btn fav-btn" title="Favourite">${favs.has(d.id) ? '♥' : '♡'}</button>
-              </div>
-            </div>
-            <div class="genres" style="margin-top:10px">
-              ${d.genres.map(g=>`<div class="genre">${g}</div>`).join('')}
-            </div>
-            <div class="card-actions">
-              <button data-id="${d.id}" class="small-btn details">Details</button>
-              <div style="font-size:12px;color:var(--muted)">Popular: ${d.popular}%</div>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      // attach listeners
-      document.querySelectorAll('.fav-btn').forEach(btn=>{
-        btn.addEventListener('click', (e)=>{ e.stopPropagation(); const id = Number(btn.dataset.id); toggleFav(id); });
-      });
-      document.querySelectorAll('.details').forEach(b=>{
-        b.addEventListener('click', ()=>{ const id=Number(b.dataset.id); openModal(id); });
-      });
-      // clicking card image or body opens detail too
-      grid.querySelectorAll('.card').forEach(card=>{
-        card.addEventListener('click', (evt)=>{
-          const btn = card.querySelector('.details'); if(btn) btn.click();
-        });
-      });
-    }
-
-    // modal logic
-    const backdrop = document.getElementById('backdrop');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalImg = document.getElementById('modalImg');
-    const modalMeta = document.getElementById('modalMeta');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalGenres = document.getElementById('modalGenres');
-    const modalCast = document.getElementById('modalCast');
-    const modalDirector = document.getElementById('modalDirector');
-    const modalSeasons = document.getElementById('modalSeasons');
-    const modalFav = document.getElementById('modalFav');
-    const modalClose = document.getElementById('modalClose');
-
-    let currentModalId = null;
-
-    function openModal(id){
-      const d = dramas.find(x=>x.id===id); if(!d) return;
-      currentModalId = d.id;
-      modalTitle.textContent = d.title;
-      modalImg.src = d.img;
-      modalMeta.textContent = `${d.year} • ★ ${d.rating} • Popular ${d.popular}%`;
-      modalDesc.textContent = d.desc;
-      modalGenres.innerHTML = d.genres.map(g=>`<div class="genre">${g}</div>`).join('');
-      modalCast.textContent = d.cast;
-      modalDirector.textContent = d.director;
-      modalSeasons.textContent = d.seasons;
-      modalFav.textContent = favs.has(d.id) ? '♥ Unfavourite' : '♡ Favourite';
-      backdrop.style.display='flex';
-    }
-    modalFav.addEventListener('click', ()=>{ if(currentModalId) toggleFav(currentModalId); modalFav.textContent = favs.has(currentModalId) ? '♥ Unfavourite' : '♡ Favourite'; });
-    modalClose.addEventListener('click', ()=>{ backdrop.style.display='none'; currentModalId=null; });
-    backdrop.addEventListener('click', (e)=>{ if(e.target===backdrop) { backdrop.style.display='none'; currentModalId=null; } });
-
-    // initial render
-    renderGrid();
-
-    // accessibility: keyboard close modal
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') backdrop.style.display='none'; });
-
   </script>
 </body>
 </html>
